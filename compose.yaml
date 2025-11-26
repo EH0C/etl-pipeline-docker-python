@@ -1,11 +1,9 @@
-version: "3.9"
-
 services:
 
   # Source MariaDB container
-  source_mariadb1:
+  source_mariadb:
     image: mariadb:10.3
-    container_name: mariadb1
+    container_name: source_mariadb
     restart: always
     ports:
       - "3306:3306"  # Access from host
@@ -17,9 +15,7 @@ services:
       TZ: Asia/Jakarta
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
-      - ./mariadb1/dbdata:/var/lib/mysql
-    networks:
-      - mynetworks
+      - ./source_mariadb/dbdata:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -27,9 +23,9 @@ services:
       retries: 5
 
   # Target MariaDB container
-  target_mariadb2:
+  target_mariadb:
     image: mariadb:10.3
-    container_name: mariadb2
+    container_name: target_mariadb
     restart: always
     ports:
       - "3307:3306"  # Access from host
@@ -41,16 +37,18 @@ services:
       TZ: Asia/Jakarta
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
-      - ./mariadb2/dbdata:/var/lib/mysql
-    networks:
-      - mynetworks
+      - ./target_mariadb/dbdata:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-networks:
-  mynetworks:
-    driver: bridge
-    external: true  # Ensure this network exists before running
+  daily-python:
+    build:
+      context: ./etl-cron  
+    container_name: daily-python
+    restart: always
+    volumes:
+      - ./etl-cron/script.py:/app/script.py
+      - ./etl-cron/crontab:/etc/crontabs/root

@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+
+  # Source MariaDB container
+  source_mariadb1:
+    image: mariadb:10.3
+    container_name: mariadb1
+    restart: always
+    ports:
+      - "3306:3306"  # Access from host
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: sourcedb
+      MYSQL_USER: sourceuser
+      MYSQL_PASSWORD: sourcepassword
+      TZ: Asia/Jakarta
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./mariadb1/dbdata:/var/lib/mysql
+    networks:
+      - mynetworks
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Target MariaDB container
+  target_mariadb2:
+    image: mariadb:10.3
+    container_name: mariadb2
+    restart: always
+    ports:
+      - "3307:3306"  # Access from host
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: targetdb
+      MYSQL_USER: targetuser
+      MYSQL_PASSWORD: targetpassword
+      TZ: Asia/Jakarta
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./mariadb2/dbdata:/var/lib/mysql
+    networks:
+      - mynetworks
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  mynetworks:
+    driver: bridge
+    external: true  # Ensure this network exists before running

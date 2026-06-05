@@ -20,8 +20,6 @@ Source MariaDB  -->  Python ETL Job  -->  Target MariaDB DW
 
 Automated via Cron inside the Python container.
 
----
-
 ## Quick Start
 
 ### Prerequisites
@@ -49,8 +47,6 @@ docker exec -it etl_cron python /app/script.py
 
 ETL runs automatically according to the Cron schedule inside the container.
 
----
-
 ## 📂 Project Structure
 
 ```
@@ -64,8 +60,6 @@ etl-docker-cron/
 └─ sample_data/         # Sample data for demonstration
 ```
 
----
-
 ## Dependencies
 
 * Python 3.11
@@ -74,8 +68,6 @@ etl-docker-cron/
 * pymysql
 
 All installed via `requirements.txt` during container build.
-
----
 
 ## Customization
 

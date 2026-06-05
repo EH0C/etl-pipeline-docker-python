@@ -2,8 +2,6 @@
 
 **An end-to-end ETL pipeline** that extracts data from a **MariaDB source**, transforms it using **Python**, and loads it into a **MariaDB data warehouse**. Fully containerized and automated with **Docker Compose** and **Cron**. Includes **anonymized/synthetic sample data** for demonstration.
 
----
-
 ## Key Features
 
 * Containerized ETL workflow using **Docker Compose**
@@ -12,8 +10,6 @@
 * Data transformation using **Python (Pandas + SQLAlchemy)**
 * Loading transformed data into a MariaDB warehouse
 * Self-contained demo environment
-
----
 
 ## Architecture Overview
 

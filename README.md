@@ -1,10 +1,10 @@
-# 🐍 ETL Pipeline with Docker, Python & Crontab
+# ETL Pipeline with Docker, Python & Crontab
 
 **An end-to-end ETL pipeline** that extracts data from a **MariaDB source**, transforms it using **Python**, and loads it into a **MariaDB data warehouse**. Fully containerized and automated with **Docker Compose** and **Cron**. Includes **anonymized/synthetic sample data** for demonstration.
 
 ---
 
-## ⚡ Key Features
+## Key Features
 
 * Containerized ETL workflow using **Docker Compose**
 * Automated scheduled ETL with **Cron**
@@ -15,7 +15,7 @@
 
 ---
 
-## 🏗 Architecture Overview
+## Architecture Overview
 
 ```
 Source MariaDB  -->  Python ETL Job  -->  Target MariaDB DW
@@ -26,7 +26,7 @@ Automated via Cron inside the Python container.
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -70,7 +70,7 @@ etl-docker-cron/
 
 ---
 
-## 🛠 Dependencies
+## Dependencies
 
 * Python 3.11
 * pandas
@@ -81,7 +81,7 @@ All installed via `requirements.txt` during container build.
 
 ---
 
-## 📌 Customization
+## Customization
 
 * **Database credentials** → Update `docker-compose.yaml`
 * **Cron schedule** → Modify `crontab` file

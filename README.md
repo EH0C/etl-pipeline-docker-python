@@ -74,5 +74,3 @@ All installed via `requirements.txt` during container build.
 * **Database credentials** → Update `docker-compose.yaml`
 * **Cron schedule** → Modify `crontab` file
 * **Transformations** → Customize logic in `script.py`
-
----
